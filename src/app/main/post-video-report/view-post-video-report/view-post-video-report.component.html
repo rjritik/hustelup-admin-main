@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="text-center mt-1">
+        <h4>Post Video Reports</h4>
+    </div>
+    <div class="m-2" *ngFor="let row of rows">
+        <div class="mb-2 mr-2"><b>Post Title:</b> {{row.postDetails.postTitle}}</div>
+        <div class="mb-1"><b>Reporter Name:</b> {{row.userDetails.username}}</div>
+        <div class="mb-1"><b>Reporter Issue:</b> {{row.reportIssue}}</div>
+        <div class="mt-2" *ngIf="row.status==0">
+            <button class="btn btn-primary" (click)="changeStatus(1)">Accept</button>
+            <button class="btn btn-warning ml-2" (click)="changeStatus(2)">Reject</button>
+        </div>
+    </div>
+</div>

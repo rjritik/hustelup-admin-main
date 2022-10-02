@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="text-center mt-1">
+        <h4>Store Details</h4>
+    </div>
+    <div class="m-2">
+        <div class="mb-1"><b>Business Name:</b> {{row?.businessName}}</div>
+        <div class="mb-1"><b>Business Type:</b> {{row?.businessType}}</div>
+        <div class="mb-1"><b>Business Address:</b> {{row?.businessAddress.address}} -
+            {{row?.businessAddress.city}} - {{row?.businessAddress.pincode}}- {{row?.businessAddress.state}}
+            - {{row?.businessAddress.street}}</div>
+        <div *ngIf="row?.TANNumber" class="mb-1"><b>TANNumber:</b> {{row?.TANNumber}}</div>
+        <div class="mb-1"><b>GST Number:</b> {{row?.gstNumber}}</div>
+        <div class="mb-1"><b>GST File:</b> {{row?.gstFile}}</div>
+        <div class="mb-1"><b>Personal Pan:</b> {{row?.personalPAN}}</div>
+        <div class="mb-1"><b>PickUp Address:</b> {{row?.pickupAddress.address}}</div>
+        <div class="mb-1"><b>PickUp City:</b> {{row?.pickupAddress.city}}</div>
+        <div class="mb-1"><b>PickUp CountryCode:</b> {{row?.pickupAddress.countryCode}}</div>
+        <div class="mb-1"><b>Signature:</b> {{row?.signature}}</div>
+        <div class="mt-2" *ngIf="row?.status==0">
+            <button class="btn btn-primary" (click)="changeStoreStatus(1)">Accept</button>
+            <button class="btn btn-warning ml-2" (click)="changeStoreStatus(2)">Reject</button>
+        </div>
+    </div>
+</div>

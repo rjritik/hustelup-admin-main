@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="text-center mt-1">
+        <h4>Brand Details</h4>
+    </div>
+
+    <div class="m-2">
+        <!-- <div class="mb-1"><b>Influencer Name:</b> {{row?.influencer[0].name}}</div> -->
+        <div class="mb-1"><b>Brand Name:</b> {{rows?.brandName}}</div>
+        <!-- <div class="mb-1"><b>Seller Name:</b> {{row.seller[0].username}}</div> -->
+        <div class="mb-1"><b>TradeMark App No:</b> {{rows?.trademarkAppNo}}</div>
+        <div class="mb-1"><b>TradeMark Class:</b> {{rows?.trademarkClass}}</div>
+
+        <!-- for brand reasion -->
+        <div class="form-group col-md-6" *ngIf="reasion==true">
+            <input type="text" placeholder="Enter Reasion" [(ngModel)]="Reasion" name="reasion" class="form-control"
+                #reasionRef="ngModel" required />
+
+        </div>
+
+        <div class="mt-2" *ngIf="rows?.status==0">
+            <button class="btn btn-primary" (click)="changeBrandStatus(1)">Accept</button>
+            <button class="btn btn-warning ml-2" (click)="changeBrandStatus(2)">Reject</button>
+        </div>
+    </div>
+</div>

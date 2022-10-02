@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="text-center mt-1">
+        <h4>Product Details</h4>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="m-2 col-6">
+            <div class="mb-1"><b>Product Id:</b> {{row?.productId}}</div>
+            <div class="mb-1"><b>Product Name:</b> {{row?.productName}}</div>
+            <div class="mb-1"><b>Country Of origin:</b> {{row?.countryOfOrigin}}</div>
+            <div class="mb-1"><b>Created date:</b> {{row?.created_date | date}}</div>
+            <div class="mb-1"><b>warrantydays:</b> {{row?.warrantydays }}</div>
+            <div class="mb-1"><b>warrantyperiod:</b> {{row?.warrantyperiod }}</div>
+            <div class="mb-1"><b>Product Code:</b> {{row?.writeproductscode}}</div>
+            <div class="mb-1"><b>Seller Name:</b> {{row?.sellerDetails[0]?.username}}</div>
+
+            <button class="btn btn-primary" *ngIf="row?.productStatus==0" (click)="changeProductStatus(1,'resion')">Accept</button>
+            <button class="btn btn-warning ml-2" (click)="changeProductStatus(2,'reasion')">Reject</button>
+        </div>
+        <div class="owl-custom-product col-6 mr-2 mt-2">
+            <owl-carousel-o [options]="customOptions">
+                <ng-container *ngFor="let slide of row?.productPhotos">
+                    <ng-template carouselSlide [id]="slide._id">
+                        <img [src]="slide.image" [alt]="slide.alt" [title]="slide._id">
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+        </div>
+    </div>
+</div>

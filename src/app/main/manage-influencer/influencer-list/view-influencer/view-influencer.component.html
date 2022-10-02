@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="text-center mt-1">
+        <h4>Influencer Details</h4>
+    </div>
+
+    <div class="m-2" *ngFor="let row of rows">
+        <!-- <div class="mb-1"><b>Influencer Name:</b> {{row?.influencer[0].name}}</div> -->
+        <div class="mb-1"><b>Created Date:</b> {{row.created_date}}</div>
+        <div class="mb-1"><b>Facebook Link:</b> {{row.facebookLink}}</div>
+        <div class="mb-1"><b>Instagram Link:</b> {{row.instagramLink}}</div>
+        <div class="mb-1"><b>Twitter Link:</b> {{row.twitterLink}}</div>
+        <div class="mb-1"><b>Youtube Link:</b> {{row.youtubeLink}}</div>
+        <div class="mt-2" *ngIf="row?.status==0">
+            <button class="btn btn-primary" (click)="changeInfluencerStatus(1)">Accept</button>
+            <button class="btn btn-warning ml-2" (click)="changeInfluencerStatus(2)">Reject</button>
+        </div>
+    </div>
+</div>

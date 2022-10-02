@@ -1,0 +1,112 @@
+<div class="slideout-content">
+    <!-- Modal to add new Admin starts-->
+    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-user modal-content pt-0" (ngSubmit)="addNewAdmin(newAdminForm)" #newAdminForm="ngForm">
+                <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        (click)="toggleSidebar('new-user-sidebar')"
+                >
+                    ×
+                </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">New Admin</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+                    <div class="form-group">
+                        <label class="form-label" for="basic-icon-default-uname">Username</label>
+                        <input
+                                type="text"
+                                id="basic-icon-default-uname"
+                                class="form-control dt-uname"
+                                placeholder="Enter username"
+                                name="username"
+                                [(ngModel)]="username"
+                                [class.error]="newAdminForm.submitted && UserNameRef.invalid"
+                                #UserNameRef="ngModel"
+                                required
+                        />
+                        <span *ngIf="newAdminForm.submitted && UserNameRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="UserNameRef.errors.required">This field is required!</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                [(ngModel)]="email"
+                                #emailRef="ngModel"
+                                [class.error]="newAdminForm.submitted && emailRef.invalid"
+                                placeholder="Email"
+                                name="email"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                                required
+                        />
+                        <span *ngIf="newAdminForm.submitted && emailRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="emailRef.errors.required">This field is required!</small>
+                        </span>
+                        <span *ngIf="emailRef.errors && (emailRef.touched || emailRef.dirty)" class="invalid-form">
+                          <small class="form-text text-danger" [hidden]="!emailRef.errors?.pattern">Invalid email </small>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Country</label>
+                        <ng-select [(ngModel)]="selectedCountry" name="country" #countryRef="ngModel"
+                                   [class.error]="newAdminForm.submitted && countryRef.invalid" required>
+                            <ng-option *ngFor="let item of country" [value]="item.countryCode">{{item.name}}</ng-option>
+                        </ng-select>
+                        <span *ngIf="newAdminForm.submitted && countryRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="countryRef.errors.required">This field is required!</small>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-group input-group-merge form-password-toggle">
+                            <input
+                                    [type]="passwordTextType ? 'text' : 'password'"
+                                    class="form-control form-control-merge"
+                                    name="password"
+                                    [(ngModel)]="password"
+                                    #passwordRef="ngModel"
+                                    [class.error]="newAdminForm.submitted && passwordRef.invalid"
+                                    placeholder="············"
+                                    required
+                            />
+                            <div class="input-group-append">
+                                    <span class="input-group-text cursor-pointer"
+                                    ><i class="feather font-small-4"
+                                        [ngClass]="{
+                                          'icon-eye-off': passwordTextType,
+                                          'icon-eye': !passwordTextType
+                                        }"
+                                        (click)="togglePasswordTextType()"></i>
+                                    </span>
+                            </div>
+                        </div>
+                        <span *ngIf="newAdminForm.submitted && passwordRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="passwordRef.errors.required">This field is required!</small>
+                        </span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-1" rippleEffect>
+                        Submit
+                    </button>
+                    <button
+                            type="reset"
+                            class="btn btn-outline-secondary"
+                            (click)="toggleSidebar('new-user-sidebar')"
+                            rippleEffect
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new Admin Ends-->
+</div>

@@ -1,0 +1,101 @@
+<div class="slideout-content">
+    <!-- Modal to add new user starts-->
+    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-user modal-content pt-0" (ngSubmit)="addSubCategory(subCategoryForm)"
+                #subCategoryForm="ngForm">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="toggleSidebar('new-subCategory-sidebar')">
+                    ×
+                </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+                    <div class="form-group">
+                        <label class="form-label">Select Country</label>
+                        <!-- <select [(ngModel)]="selectedCountry" name="countryList" #countryRef="ngModel"
+                            [class.error]="subCategoryForm.submitted && countryRef.invalid" class="form-control"
+                            (change)="getMenuCategory($event)" required>
+                            <option *ngFor="let item of countryList" value={{item.countryCode}}>
+                                {{item.name}} - {{item.countryCode}}
+                            </option>
+                            <span *ngIf="subCategoryForm.submitted && countryRef.invalid" class="invalid-form">
+                                <small class="form-text text-danger" *ngIf="countryRef.errors.required">This field is
+                                    required!</small>
+                            </span>
+                        </select> -->
+
+                        <ng-select [(ngModel)]="selectedCountry" name="countryList" #countryRef="ngModel"
+                            (change)="getMenuCategory()" [class.error]="subCategoryForm.submitted && countryRef.invalid"
+                            required>
+                            <ng-option *ngFor="let item of countryList" value={{item.countryCode}}>{{item.name}} -
+                                {{item.countryCode}}
+                            </ng-option>
+                        </ng-select>
+                        <span *ngIf="subCategoryForm.submitted && countryRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="countryRef.errors.required">This field is
+                                required!</small>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Select Menu Category</label>
+                        <!-- <select [(ngModel)]="selectedMenu" name="countryList" #menuCategoryRef="ngModel"
+                            [class.error]="subCategoryForm.submitted && menuCategoryRef.invalid" class="form-control"
+                            (change)="getSelectedMenu($event)" required>
+                            <option *ngFor="let item of menulist" value={{item._id}}>
+                                {{item.title}}
+                            </option>
+                            <span *ngIf="subCategoryForm.submitted && menuCategoryRef.invalid" class="invalid-form">
+                                <small class="form-text text-danger" *ngIf="menuCategoryRef.errors.required">This field
+                                    is
+                                    required!</small>
+                            </span>
+                        </select> -->
+
+                        <ng-select [(ngModel)]="selectedMenu" name="menuList" #menuCategoryRef="ngModel"
+                            (change)="getSelectedMenu()"
+                            [class.error]="subCategoryForm.submitted && menuCategoryRef.invalid" required>
+                            <ng-option *ngFor="let item of menulist" [value]="item._id">{{item.title}}
+                            </ng-option>
+                        </ng-select>
+                        <span *ngIf="subCategoryForm.submitted && menuCategoryRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="menuCategoryRef.errors.required">This field is
+                                required!</small>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="subCategory">Sub Category</label>
+                        <input class="form-control" id="subCategory" type="text" name="subCategory"
+                            aria-describedby="subCategory" placeholder="Add Sub Category" [(ngModel)]="category"
+                            [class.error]="subCategoryForm.submitted && categoryRef.invalid" #categoryRef="ngModel"
+                            #emailRef="ngModel" required />
+                        <span *ngIf="subCategoryForm.submitted && categoryRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="categoryRef.errors.required">This field
+                                is
+                                required!</small>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="subCategory">Menu Column</label>
+                        <ng-select [(ngModel)]="menuColumn" name="columnsList" #columnsRef="ngModel" required>
+                            <ng-option *ngFor="let item of columnsList" [value]="item.columns">{{item.columns}}
+                            </ng-option>
+                        </ng-select>
+                        <span *ngIf="subCategoryForm.submitted && columnsRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="columnsRef.errors.required">This field is required!</small>
+                        </span>         
+                    </div>
+                    <button [disabled]="loading" type="submit" class="btn btn-primary mr-1" rippleEffect>
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary"
+                        (click)="toggleSidebar('new-subCategory-sidebar')" rippleEffect>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new user Ends-->
+</div>

@@ -1,0 +1,124 @@
+<!-- New category list code -->
+
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- Admin List -->
+        <section class="users-list-wrapper">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-3 col-12">
+                        <div class="d-flex justify-content-between align-items-center m-1">
+                            <label class="d-flex align-items-center">Show
+                                <select class="form-control mx-25" (change)="pageLimitChange()" [(ngModel)]="selectedOption">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                entries</label>
+                        </div>
+                    </div>
+                    <div *ngIf="this.currentUser.role == 1"
+                        class="col-md-4 col-12 d-flex justify-content-start justify-content-md-end">
+                        <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
+                            <label class="d-flex align-items-center ml-1 mr-1 ml-md-0">Select Country
+                            </label>
+                            <ng-select [(ngModel)]="selectedCountry" name="countryList" style="width: 200px;"
+                                #countryRef="ngModel" id="country" (change)="getCountry()">
+                                <ng-option *ngFor="let item of countryList" [value]="item.countryCode">
+                                    {{item.name}}
+                                </ng-option>
+                                <ng-option value="Other">Other</ng-option>
+                            </ng-select>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 col-12">
+                        <ul ngbNav #nav="ngbNav" class="nav nav-pills mt-1">
+                            <li ngbNavItem (click)="getPostReport(0)">
+                                <a ngbNavLink class="d-flex align-items-center"><span>New Report</span></a>
+
+                            </li>
+                            <li ngbNavItem (click)="getPostReport(1)">
+                                <a ngbNavLink class="d-flex align-items-center">
+                                    <span>Accept
+                                        Report</span></a>
+
+                            </li>
+                            <li ngbNavItem (click)="getPostReport(2)">
+                                <a ngbNavLink class="d-flex align-items-center"><span>Reject Report</span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
+                    [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
+
+                    <ngx-datatable-column name="Post Title" prop="postDetails.postTitle" [width]="200"></ngx-datatable-column>
+                    <ngx-datatable-column name="Post Count" prop="count" [width]="200"></ngx-datatable-column>
+                    <ngx-datatable-column name="Actions" [width]="50" [sortable]="false">
+                        <ng-template ngx-datatable-cell-template let-row="row">
+                            <div ngbDropdown container="body">
+                                <button routerLink="/postImageReport/view-PostImageReport/{{ row._id }}"
+                                    class="btn btn-primary btn-sm">View</button>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+                <!-- Pagination  -->
+                <div *ngIf="rows?.length > 0" class="d-flex justify-content-center">
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="pageNumber" [maxSize]="5"
+                        [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="PageChanged($event);">
+                        <ng-template ngbPaginationFirst>First</ng-template>
+                        <ng-template ngbPaginationPrevious><span [data-feather]="'chevron-left'"
+                                [class]="'font-weight-bolder'"></span>Prev
+                        </ng-template>
+                        <ng-template ngbPaginationNext>Next<span [data-feather]="'chevron-right'"
+                                [class]="'font-weight-bolder'"></span>
+                        </ng-template>
+                        <ng-template ngbPaginationLast>Last</ng-template>
+                    </ngb-pagination>
+                </div>
+                <!-- Pagination -->
+            </div>
+        </section>
+        <!--/ Admin List -->
+    </div>
+
+</div>
+
+<!-- Modal -->
+<!-- <ng-template #editModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Edit Menu Category</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form (ngSubmit)="editSubCategory(editCategoryForm)" #editCategoryForm="ngForm">
+        <div class="modal-body" tabindex="0" ngbAutofocus>
+            <label>Menu Title: </label>
+            <div class="form-group">
+                <input type="text" placeholder="Menu Title" [(ngModel)]="SingleRow.title" name="title"
+                    [class.error]="editCategoryForm.submitted && titleRef.invalid" class="form-control"
+                    #titleRef="ngModel" required />
+                <span *ngIf="editCategoryForm.submitted && titleRef.invalid" class="invalid-form">
+                    <small class="form-text text-danger" *ngIf="titleRef.errors.required">This field is
+                        required!</small>
+                </span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" (click)="modal.close('Accept click')" rippleEffect>
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" rippleEffect>
+                Save
+            </button>
+        </div>
+    </form>
+</ng-template> -->
+<!-- / Modal -->

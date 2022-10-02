@@ -1,0 +1,52 @@
+<div class="slideout-content">
+    <!-- Modal to add new Admin starts-->
+    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-user modal-content pt-0" (ngSubmit)="addAddressProof(addressProofForm)"
+                #addressProofForm="ngForm">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="toggleSidebar('app-address-proof-sidebar')">
+                    ×
+                </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">New Address Proof</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+                    <div class="form-group">
+                        <label class="form-label" for="basic-icon-default-addressProof">Proof Name</label>
+                        <input type="text" id="basic-icon-default-addressProof" class="form-control dt-addressProof"
+                            placeholder="Enter Proof Name" name="proofName" [(ngModel)]="proofName"
+                            [class.error]="addressProofForm.submitted && proofNameRef.invalid" #proofNameRef="ngModel"
+                            required />
+                        <span *ngIf="addressProofForm.submitted && proofNameRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="proofNameRef.errors.required">This field is
+                                required!</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Select Country</label>
+                        <ng-select [(ngModel)]="selectedCountry" name="countryList" #countryRef="ngModel"
+                            [class.error]=" addressProofForm.submitted && countryRef.invalid" required>
+                            <ng-option *ngFor="let item of countryList" [value]="item.countryCode">{{item.name}}
+                            </ng-option>
+                        </ng-select>
+                        <span *ngIf="addressProofForm.submitted && countryRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="countryRef.errors.required">This field is
+                                required!</small>
+                        </span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-1" rippleEffect>
+                        Submit
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary"
+                        (click)="toggleSidebar('app-address-proof-sidebar')" rippleEffect>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new Admin Ends-->
+</div>

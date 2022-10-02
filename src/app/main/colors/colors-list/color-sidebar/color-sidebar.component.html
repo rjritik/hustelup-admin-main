@@ -1,0 +1,60 @@
+<div class="slideout-content">
+    <!-- Modal to add new user starts-->
+    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-user modal-content pt-0" (ngSubmit)="addColor(colorForm)" #colorForm="ngForm">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="toggleSidebar('new-color-sidebar')">
+                    ×
+                </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Color</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+                    <div for="color" class="form-group">
+                        <label class="form-label" for="colorCode">Select Color</label>
+                        <div class="form-control d-flex p-0 no-border">
+
+                            <input style="border:none;width: 50px; border: transparent; border-radius: 3px;"
+                                [style.background]="color1" id="color" [(colorPicker)]="color1"
+                                (colorPickerChange)="onChangeColor($event)" />
+                                
+                                <!-- pattern="^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" -->
+                                <div style="margin-left: 20px;">
+                                    <input type="text" class="form-control" [(ngModel)]="colorValue"
+                                    (keyup)="getColorCode($event)" value="{{selectColorVal}}" name="colorCode"
+                                    [class.error]="colorForm.submitted && codeRef.invalid" #codeRef="ngModel" required>
+                                <span *ngIf="colorForm.submitted && codeRef.invalid" class="invalid-form">
+                                    <small class="form-text text-danger" *ngIf="codeRef.errors.required">This field
+                                        is
+                                        required!</small>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- <div>
+                                <input type="text" (colorPickerChange)="onChangeColor($event)" />
+                            </div> -->
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="colorName">Enter Color Name</label>
+                        <input class="form-control" id="colorName" type="text" name="colorName"
+                            aria-describedby="colorName" placeholder="Enter Color Name" [(ngModel)]="colorName"
+                            [class.error]="colorForm.submitted && colorRef.invalid" #colorRef="ngModel" required />
+                        <span *ngIf="colorForm.submitted && colorRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="colorRef.errors.required">This field is
+                                required!</small>
+                        </span>
+                    </div>
+                    <button [disabled]="loading" type="submit" class="btn btn-primary mr-1" rippleEffect>
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-color-sidebar')"
+                        rippleEffect>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new user Ends-->
+</div>

@@ -1,0 +1,152 @@
+<!-- New category list code -->
+
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- Admin List -->
+        <section class="users-list-wrapper">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="d-flex justify-content-between align-items-center m-1">
+                            <label class="d-flex align-items-center">Show
+                                <select class="form-control mx-25" [(ngModel)]="selectedOption">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                entries</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
+                        <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
+                            <label class="d-flex align-items-center ml-1 ml-md-0">Search:<input name="searchValue"
+                                    type="search" class="form-control ml-25" (keyup)="SearchCategory($event)" /></label>
+                            <button class="btn btn-primary ml-1" rippleEffect
+                                (click)="toggleSidebar('new-productType-sidebar')">
+                                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                                    class="d-none d-sm-inline-block">Add New product Type</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- new row for select drop down  -->
+                <div class="row" style="margin-left: 5px;margin-right: 5px;">
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="form-label">Select Country</label>
+                            <ng-select [(ngModel)]="selectedCountry" name="countryList" #countryRef="ngModel"
+                                (change)="getMenuCategory()">
+                                <ng-option *ngFor="let item of countryList" [value]="item.countryCode">{{item.name}}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="form-label">Select Menu Category</label>
+                            <ng-select [(ngModel)]="menuCategory" name="countryList" #countryRef="ngModel"
+                                (change)="getMenuSubCategory()">
+                                <ng-option *ngFor="let item of menulist" [value]="item._id">
+                                    {{item.title}}
+                                </ng-option>
+                            </ng-select>
+                            <!-- <select class="form-control" [(ngModel)]=" menuCategory" #countryRef="ngModel"
+                                (change)="getMenuSubCategory()">
+                                <option disabled value="">Select Menu Category</option>
+                                <option [disabled]="!menulist" *ngFor="let item of menulist" [value]="item._id">
+                                    {{item.title}}</option>
+                            </select> -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="form-label">Select Menu Sub Category</label>
+                            <ng-select [(ngModel)]="selectedSubMenu" name="subMenulist" #menuSubCategoryRef="ngModel"
+                                (change)="getData()">
+                                <ng-option *ngFor="let item of subMenulist" [value]="item._id">{{item.title}}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
+                    [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
+                    <ngx-datatable-column name="Status" [width]="50">
+                        <ng-template ngx-datatable-cell-template let-row="row">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch{{row._id}}"
+                                    [checked]="row.status" (change)="checkStatus(row,$event)" />
+                                <label class="custom-control-label" for="customSwitch{{row._id}}">
+                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                </label>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Product Title" prop="title" [width]="200"></ngx-datatable-column>
+                    <ngx-datatable-column name="Actions" [width]="50" [sortable]="false">
+                        <ng-template ngx-datatable-cell-template let-row="row">
+                            <div ngbDropdown container="body">
+                                <button ngbDropdownToggle type="button" class="btn icon-btn btn-sm hide-arrow"
+                                    rippleEffect>
+                                    <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
+                                </button>
+                                <div ngbDropdownMenu>
+                                    <a (click)="openModal(editModal,row)" ngbDropdownItem><span [data-feather]="'edit'"
+                                            [size]="16" [class]="'mr-50'"></span> Edit</a>
+                                    <a href="javascript:;" ngbDropdownItem (click)="deleteProductType(row)"><span
+                                            [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </section>
+        <!--/ Admin List -->
+    </div>
+
+    <!-- New productType Sidebar -->
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="new-productType-sidebar"
+        overlayClass="modal-backdrop">
+        <app-product-type-sidebar (getData)="getData()"></app-product-type-sidebar>
+    </core-sidebar>
+    <!--/ New productType Sidebar -->
+</div>
+
+<!-- Modal -->
+<ng-template #editModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Edit Menu Category</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form (ngSubmit)="editProductType(editProductTypeForm)" #editProductTypeForm="ngForm">
+        <div class="modal-body" tabindex="0" ngbAutofocus>
+            <label>Menu Title: </label>
+            <div class="form-group">
+                <input type="text" placeholder="Menu Title" [(ngModel)]="SingleRow.title" name="title"
+                    [class.error]="editProductTypeForm.submitted && titleRef.invalid" class="form-control"
+                    #titleRef="ngModel" required />
+                <span *ngIf="editProductTypeForm.submitted && titleRef.invalid" class="invalid-form">
+                    <small class="form-text text-danger" *ngIf="titleRef.errors.required">This field is
+                        required!</small>
+                </span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" (click)="modal.close('Accept click')" rippleEffect>
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" rippleEffect>
+                Save
+            </button>
+        </div>
+    </form>
+</ng-template>
+<!-- / Modal -->

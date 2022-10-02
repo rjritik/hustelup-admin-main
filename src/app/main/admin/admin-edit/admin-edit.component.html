@@ -1,0 +1,109 @@
+<div class="content-wrapper">
+    <div class="content-body">
+        <!-- customer edit start -->
+        <section class="app-user-edit">
+            <ng-container>
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <form class="form-validate" (ngSubmit)="editadmin(editAdminForm,row._id)"
+                                #editAdminForm="ngForm">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="username">User Name</label>
+                                            <input type="text" class="form-control dt-full-name" id="username"
+                                                placeholder="User Name" name="username" [(ngModel)]="username"
+                                                [class.error]="editAdminForm.submitted && usernameRef.invalid"
+                                                #usernameRef="ngModel" required aria-describedby="username" />
+                                            <span *ngIf="editAdminForm.submitted && usernameRef.invalid"
+                                                class="invalid-form">
+                                                <small class="form-text text-danger"
+                                                    *ngIf="usernameRef.errors.required">This field is
+                                                    required!</small>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="lastname">Email</label>
+                                            <input type="text" class="form-control dt-full-name" id="username"
+                                                placeholder="Email" name="email" [(ngModel)]="email"
+                                                [class.error]="editAdminForm.submitted && emailRef.invalid"
+                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #emailRef="ngModel"
+                                                required aria-describedby="email" />
+                                            <span *ngIf="editAdminForm.submitted && emailRef.invalid"
+                                                class="invalid-form">
+                                                <small class="form-text text-danger"
+                                                    *ngIf="emailRef.errors.required">This field
+                                                    is
+                                                    required!</small>
+                                            </span>
+
+                                            <span *ngIf="emailRef.errors && (emailRef.touched || emailRef.dirty)"
+                                                class="invalid-form">
+                                                <small class="form-text text-danger"
+                                                    [hidden]="!emailRef.errors?.pattern">Enter Correct Email Formate
+                                                </small>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="password">Password</label>
+                                            <input type="text" class="form-control dt-full-name" id="password"
+                                                placeholder="Password" name="password" [(ngModel)]="password"
+                                                [class.error]="editAdminForm.submitted && passwordRef.invalid"
+                                                #passwordRef="ngModel" aria-describedby="password" />
+                                            <!-- <span *ngIf="editAdminForm.submitted && passwordRef.invalid"
+                                                class="invalid-form">
+                                                <small class="form-text text-danger"
+                                                    *ngIf="passwordRef.errors.required">This field is
+                                                    required!</small>
+                                            </span> -->
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="password">Country</label>
+                                            <select [(ngModel)]="country" name="countryList" #countryRef="ngModel"
+                                                class="form-control">
+                                                <option *ngFor="let item of countryList" value={{item.countryCode}}>
+                                                    {{item.name}} -
+                                                    {{item.countryCode}}</option>
+                                            </select>
+                                            <span *ngIf="editAdminForm.submitted && passwordRef.invalid"
+                                                class="invalid-form">
+                                                <small class="form-text text-danger"
+                                                    *ngIf="passwordRef.errors.required">This field is
+                                                    required!</small>
+                                            </span>
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="col-md-4 mt-2">
+                                        <div class="form-group">
+                                            <input id="email" type="checkbox" name="role" aria-describedby="role"
+                                                (change)="getCheckboxValue()" [(ngModel)]="role" #roleRef="ngModel" />
+                                            Is Super Admin
+                                        </div>
+                                    </div> -->
+                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                        <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                                            rippleEffect>
+                                            Save Changes
+                                        </button>
+                                        <button type="button" routerLink="/admin" class="btn btn-outline-secondary"
+                                            rippleEffect>Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </section>
+        <!-- customer edit ends -->
+    </div>
+</div>
